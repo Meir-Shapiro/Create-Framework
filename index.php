@@ -1,5 +1,4 @@
 <?php
-
 require_once 'vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
@@ -8,10 +7,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 $request = Request::createFromGlobals();
 
-$input = $request->get('name', 'World!');
+$response = new Response();
 
-$response = new Response('Hello there ' .  htmlspecialchars($input, ENT_QUOTES, 'UTF-8'));
+$map = [
+  '/hello' => 'src/pages/hello.php',
+  '/bye' => 'src/pages/bye.php'
+];
 
-print_r($response->getDate());
+$path = $request->getPathInfo();
+
+if (isset($map[$path])) {
+    require $map[$path];
+    $response->setContent(ob_get_clean());
+} else {
+    $response->setStatusCode(404);
+    $response->setContent('Not Found');
+}
 
 $response->send();
