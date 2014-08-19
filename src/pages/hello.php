@@ -1,5 +1,1 @@
-<?php
-
-$input = $request->get('name', 'World!');
-?>
-Hello there <?=  htmlspecialchars($input, ENT_QUOTES, 'UTF-8') ?>
+Hello there <?=  htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>
