@@ -17,12 +17,8 @@ $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 try
 {
     extract($matcher->match($request->getPathInfo()), EXTR_SKIP);
-    echo "<pre>";
-    print_r($matcher->match($request->getPathInfo()));
-    echo "</pre>";
-    die;
-    ob_start();
 
+    ob_start();
 
     include sprintf('src/pages/%s.php', $_route);
 
